@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import time
-import winsound
-import os
 import smtplib
 from email.mime.text import MIMEText
 
@@ -34,12 +32,6 @@ def get_course_info(url):
             })
 
     return open_classes
-
-def play_notification_sound():
-    winsound.PlaySound("SystemAsterisk", winsound.SND_ALIAS)  
-
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')  
 
 def send_email(subject, body):
     # Email configuration
@@ -75,24 +67,10 @@ if __name__ == "__main__":
         # Check for new open seats
         new_open_seats = [course for course in open_classes_info if course not in previous_open_classes]
         if new_open_seats:
-            play_notification_sound()
-            print("New open seats found!")
-            
             # Send email notification
             subject = "New Open Seats Found!"
             body = "\n".join([f"Section ID: {course['section_id']}\nInstructor: {course['instructor']}\nTotal Seats: {course['total_seats']}\nOpen Seats: {course['open_seats']}\n" for course in new_open_seats])
             send_email(subject, body)
-
-        # Print information about open classes
-        if open_classes_info:
-            for class_info in open_classes_info:
-                print(f"Section ID: {class_info['section_id']}")
-                print(f"Instructor: {class_info['instructor']}")
-                print(f"Total Seats: {class_info['total_seats']}")
-                print(f"Open Seats: {class_info['open_seats']}")
-                print("\n")
-        else:
-            print("No open classes found.")
 
         previous_open_classes = open_classes_info
 
