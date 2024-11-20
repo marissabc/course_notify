@@ -3,8 +3,12 @@ from bs4 import BeautifulSoup
 import time
 import smtplib
 from email.mime.text import MIMEText
+import threading
 
 def get_course_info(url):
+    """
+    Fetches course information from the given URL.
+    """
     # Fetch HTML content
     response = requests.get(url)
     html_content = response.text
@@ -34,14 +38,17 @@ def get_course_info(url):
     return open_classes
 
 def send_email(subject, body):
+    """
+    Sends an email notification with the given subject and body.
+    """
     # Email configuration
     sender_email = "thelegobrick122@gmail.com"  
     receiver_email = "marissa22c@gmail.com"
-    password = "bhhi yhbj kueu kfpb" 
+    password = "bhhi yhbj kueu kfpb"  # Replace with your actual email password or app password
 
     # Create the email content
     message = MIMEText(body)
-    message["Subject"] = "Test"
+    message["Subject"] = subject
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -51,12 +58,12 @@ def send_email(subject, body):
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_email, message.as_string())
 
-if __name__ == "__main__":
-    class_name = "CMSC330"
-    sectionId = ""
-    termId = "202501"
-    # URL for CMSC132 course, Spring 2023
-    course_url = 'https://app.testudo.umd.edu/soc/search?courseId=CMSC330&sectionId=&termId=202501&_openSectionsOnly=on&creditCompare=&credits=&courseLevelFilter=ALL&instructor=&_facetoface=on&_blended=on&_online=on&courseStartCompare=&courseStartHour=&courseStartMin=&courseStartAM=&courseEndHour=&courseEndMin=&courseEndAM=&teachingCenter=ALL&_classDay1=on&_classDay2=on&_classDay3=on&_classDay4=on&_classDay5=on'
+def monitor_course(course_id, section_id, instructor, term_id="202501"):
+    """
+    Monitors a specific course and sends email notifications if open seats are found.
+    """
+    # Construct the course URL
+    course_url = f'https://app.testudo.umd.edu/soc/search?courseId={course_id}&sectionId={section_id}&termId={term_id}&_openSectionsOnly=on&creditCompare=&credits=&courseLevelFilter=ALL&instructor={instructor}&_facetoface=on&_blended=on&_online=on&courseStartCompare=&courseStartHour=&courseStartMin=&courseStartAM=&courseEndHour=&courseEndMin=&courseEndAM=&teachingCenter=ALL&_classDay1=on&_classDay2=on&_classDay3=on&_classDay4=on&_classDay5=on'
 
     previous_open_classes = []
 
@@ -67,11 +74,48 @@ if __name__ == "__main__":
         new_open_seats = [course for course in open_classes_info if course not in previous_open_classes]
         if new_open_seats:
             # Send email notification
-            subject = "New Open Seats Found!"
+            subject = f"New Open Seats for {course_id}!"
             body = "\n".join([f"Section ID: {course['section_id']}\nInstructor: {course['instructor']}\nTotal Seats: {course['total_seats']}\nOpen Seats: {course['open_seats']}\n" for course in new_open_seats])
             send_email(subject, body)
+            print(f"Email sent: {subject}")
 
         previous_open_classes = open_classes_info
 
         # Wait for 30 seconds before fetching again
         time.sleep(30)
+
+if __name__ == "__main__":
+    # Define the courses to monitor
+    courses_to_monitor = [
+        {"course_id": "CMSC330", "section_id": "0201", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0202", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0203", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0204", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0205", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0206", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0301", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0302", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0303", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0304", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC330", "section_id": "0401", "instructor": "", "term_id": "202501"},
+
+    ]
+
+    # Start monitoring each course in a separate thread
+    threads = []
+    for course in courses_to_monitor:
+        thread = threading.Thread(
+            target=monitor_course,
+            args=(
+                course["course_id"],
+                course["section_id"],
+                course["instructor"],
+                course["term_id"]
+            )
+        )
+        threads.append(thread)
+        thread.start()
+
+    # Keep the main thread alive
+    for thread in threads:
+        thread.join()
