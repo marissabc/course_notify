@@ -61,7 +61,6 @@ if __name__ == "__main__":
     previous_open_classes = []
 
     while True:
-        clear_screen()
         open_classes_info = get_course_info(course_url)
 
         # Check for new open seats
