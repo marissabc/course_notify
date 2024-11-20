@@ -84,6 +84,18 @@ def monitor_course(course_id, section_id, instructor, term_id="202501"):
         # Wait for 30 seconds before fetching again
         time.sleep(30)
 
+def send_periodic_status_email():
+    """
+    Sends an email every 3 hours with the message 'no new classes - everything still running properly'.
+    """
+    while True:
+        time.sleep(10800)  # Wait for 3 hours (3 hours * 60 minutes * 60 seconds)
+        subject = "No New Classes - Everything Still Running Properly"
+        body = "No new open seats found in the last 3 hours. Everything is running properly."
+        send_email(subject, body)
+        print(f"Periodic email sent: {subject}")
+
+
 if __name__ == "__main__":
     # Define the courses to monitor
     courses_to_monitor = [
@@ -97,7 +109,6 @@ if __name__ == "__main__":
         {"course_id": "CMSC330", "section_id": "0302", "instructor": "", "term_id": "202501"},
         {"course_id": "CMSC330", "section_id": "0303", "instructor": "", "term_id": "202501"},
         {"course_id": "CMSC330", "section_id": "0304", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0401", "instructor": "", "term_id": "202501"},
 
     ]
 
@@ -115,6 +126,9 @@ if __name__ == "__main__":
         )
         threads.append(thread)
         thread.start()
+
+    periodic_email_thread = threading.Thread(target=send_periodic_status_email)
+    periodic_email_thread.start()
 
     # Keep the main thread alive
     for thread in threads:
