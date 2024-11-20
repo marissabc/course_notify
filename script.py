@@ -64,7 +64,7 @@ if __name__ == "__main__":
     sectionId = ""
     termId = "202501"
     # URL for CMSC132 course, Spring 2023
-    course_url = 'https://app.testudo.umd.edu/soc/search?courseId=MATH240&sectionId=&termId=202408&_openSectionsOnly=on&creditCompare=&credits=&courseLevelFilter=ALL&instructor=&_facetoface=on&_blended=on&_online=on&courseStartCompare=&courseStartHour=&courseStartMin=&courseStartAM=&courseEndHour=&courseEndMin=&courseEndAM=&teachingCenter=ALL&_classDay1=on&_classDay2=on&_classDay3=on&_classDay4=on&_classDay5=on'
+    course_url = 'https://app.testudo.umd.edu/soc/search?courseId=CMSC330&sectionId=&termId=202501&_openSectionsOnly=on&creditCompare=&credits=&courseLevelFilter=ALL&instructor=&_facetoface=on&_blended=on&_online=on&courseStartCompare=&courseStartHour=&courseStartMin=&courseStartAM=&courseEndHour=&courseEndMin=&courseEndAM=&teachingCenter=ALL&_classDay1=on&_classDay2=on&_classDay3=on&_classDay4=on&_classDay5=on'
 
     previous_open_classes = []
 
