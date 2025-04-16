@@ -102,7 +102,8 @@ if __name__ == "__main__":
     # Define the courses to monitor
     courses_to_monitor = [
         {"course_id": "CMSC414", "section_id": "0201", "instructor": "", "term_id": "202508"},
-        {"course_id": "CMSC330", "section_id": "0301", "instructor": "", "term_id": "202508"},
+        {"course_id": "CMSC414", "section_id": "0301", "instructor": "", "term_id": "202508"},
+        {"course_id": "CMSC436", "section_id": "0101", "instructor": "", "term_id": "202508"}
 
     ]
 
