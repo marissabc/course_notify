@@ -5,6 +5,8 @@ import smtplib
 from email.mime.text import MIMEText
 import threading
 
+# course checker email password: rfnb bswk hgad xhyt
+
 def get_course_info(url):
     """
     Fetches course information from the given URL.
@@ -42,9 +44,9 @@ def send_email(subject, body):
     Sends an email notification with the given subject and body.
     """
     # Email configuration
-    sender_email = "thelegobrick122@gmail.com"  
-    receiver_email = "marissa22c@gmail.com"
-    password = "bhhi yhbj kueu kfpb"  # Replace with your actual email password or app password
+    sender_email = "umdseatalert@gmail.com"  
+    receiver_email = ""
+    password = "rfnb bswk hgad xhyt"  # app password
 
     # Create the email content
     message = MIMEText(body)
@@ -99,16 +101,8 @@ def send_periodic_status_email():
 if __name__ == "__main__":
     # Define the courses to monitor
     courses_to_monitor = [
-        {"course_id": "CMSC330", "section_id": "0201", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0202", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0203", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0204", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0205", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0206", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0301", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0302", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0303", "instructor": "", "term_id": "202501"},
-        {"course_id": "CMSC330", "section_id": "0304", "instructor": "", "term_id": "202501"},
+        {"course_id": "CMSC414", "section_id": "0201", "instructor": "", "term_id": "202508"},
+        {"course_id": "CMSC330", "section_id": "0301", "instructor": "", "term_id": "202508"},
 
     ]
 
