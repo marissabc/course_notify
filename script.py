@@ -110,7 +110,8 @@ if __name__ == "__main__":
         {"course_id": "ANTH222", "section_id": "0104", "instructor": "", "term_id": "202508"},
         {"course_id": "ANTH222", "section_id": "0105", "instructor": "", "term_id": "202508"},
         {"course_id": "ANTH222", "section_id": "0106", "instructor": "", "term_id": "202508"},
-        {"course_id": "BSST200", "section_id": "0101", "instructor": "", "term_id": "202508"}
+        {"course_id": "HACS408L", "section_id": "0101", "instructor": "", "term_id": "202508"},
+        {"course_id": "HACS408M", "section_id": "0101", "instructor": "", "term_id": "202508"}
 
     ]
 
