@@ -45,7 +45,7 @@ def send_email(subject, body):
     """
     # Email configuration
     sender_email = "umdseatalert@gmail.com"  
-    receiver_email = ""
+    receiver_email = "mastejed@gmail.com"
     password = "rfnb bswk hgad xhyt"  # app password
 
     # Create the email content
